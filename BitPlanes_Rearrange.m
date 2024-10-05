@@ -1,32 +1,32 @@
 function [origin_bits] = BitPlanes_Rearrange(Plane,Block_size,type)
-% º¯ÊýËµÃ÷£º¸ù¾ÝBMPRËã·¨ÖØÅÅÁÐÎ»Æ½Ãæ¾ØÕóPlane
-% ÊäÈë£ºPlane£¨Î»Æ½Ãæ¾ØÕó£©,Block_size£¨·Ö¿é´óÐ¡£©,type£¨ÖØÅÅÁÐ·½Ê½£©
-% Êä³ö£ºorigin_bits£¨ÖØÅÅÁÐÖ®ºóµÄÎ»Æ½Ãæ±ÈÌØÁ÷£©
+% ï¿½ï¿½ï¿½ï¿½Ëµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½BMPRï¿½ã·¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î»Æ½ï¿½ï¿½ï¿½ï¿½ï¿½Plane
+% ï¿½ï¿½ï¿½ë£ºPlaneï¿½ï¿½Î»Æ½ï¿½ï¿½ï¿½ï¿½ï¿½,Block_sizeï¿½ï¿½ï¿½Ö¿ï¿½ï¿½Ð¡ï¿½ï¿½,typeï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð·ï¿½Ê½ï¿½ï¿½
+% ï¿½ï¿½ï¿½ï¿½ï¿½origin_bitsï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö®ï¿½ï¿½ï¿½Î»Æ½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 [row,col] = size(Plane);
-m = floor(row/Block_size); %m*nÍêÕû·Ö¿éµÄ¸öÊý
+m = floor(row/Block_size); %m*nï¿½ï¿½ï¿½ï¿½ï¿½Ö¿ï¿½Ä¸ï¿½ï¿½ï¿½
 n = floor(col/Block_size);
-origin_bits = zeros(); %ÓÃÀ´¼ÇÂ¼Î»Æ½ÃæÖØÅÅÁÐµÄ±ÈÌØÁ÷
-num = 0; %¼ÆÊý
-%-------------------·Ö¿éÄÚ°´ÐÐ±éÀú£¬·Ö¿é¼ä°´ÐÐ±éÀú£¨ÐÐ-ÐÐ£©------------------%
-if type==0 %0¡ú00
-    for i=1:m  %·Ö¿éÖ®¼ä°´ÐÐ±éÀú
+origin_bits = zeros(); %ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â¼Î»Æ½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÐµÄ±ï¿½ï¿½ï¿½ï¿½ï¿½
+num = 0; %ï¿½ï¿½ï¿½ï¿½
+%-------------------ï¿½Ö¿ï¿½ï¿½Ú°ï¿½ï¿½Ð±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¿ï¿½ä°´ï¿½Ð±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½-ï¿½Ð£ï¿½------------------%
+if type==0 %0ï¿½ï¿½00
+    for i=1:m  %ï¿½Ö¿ï¿½Ö®ï¿½ä°´ï¿½Ð±ï¿½ï¿½ï¿½
         for j=1:n
-            begin_x = (i-1)*Block_size+1; %¶ÔÓ¦·Ö¿éµÄÆðÊ¼×ø±ê
+            begin_x = (i-1)*Block_size+1; %ï¿½ï¿½Ó¦ï¿½Ö¿ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½
             begin_y = (j-1)*Block_size+1;
-            end_x = i*Block_size; %¶ÔÓ¦·Ö¿éµÄ½áÊø×ø±ê
+            end_x = i*Block_size; %ï¿½ï¿½Ó¦ï¿½Ö¿ï¿½Ä½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             end_y = j*Block_size;
-            for x=begin_x:end_x  %·Ö¿éÖ®ÄÚ°´ÐÐ±éÀú
+            for x=begin_x:end_x  %ï¿½Ö¿ï¿½Ö®ï¿½Ú°ï¿½ï¿½Ð±ï¿½ï¿½ï¿½
                 for y=begin_y:end_y
                     num = num+1;
                     origin_bits(num) = Plane(x,y);
                 end
             end 
         end
-        if col-n*Block_size>=1  %ÓÐÊ£ÓàÁÐ
+        if col-n*Block_size>=1  %ï¿½ï¿½Ê£ï¿½ï¿½ï¿½ï¿½
             begin_y = n*Block_size+1;
             end_y = col;
-            for x=begin_x:end_x  %·Ö¿éÖ®ÄÚ°´ÐÐ±éÀú
+            for x=begin_x:end_x  %ï¿½Ö¿ï¿½Ö®ï¿½Ú°ï¿½ï¿½Ð±ï¿½ï¿½ï¿½
                 for y=begin_y:end_y
                     num = num+1;
                     origin_bits(num) = Plane(x,y);
@@ -34,13 +34,13 @@ if type==0 %0¡ú00
             end
         end  
     end
-    if row-m*Block_size>=1 %ÓÐÊ£ÓàÐÐ
+    if row-m*Block_size>=1 %ï¿½ï¿½Ê£ï¿½ï¿½ï¿½ï¿½
         begin_x = m*Block_size+1; 
         end_x = row;
         for j=1:n
             begin_y = (j-1)*Block_size+1;
             end_y = j*Block_size;
-            for x=begin_x:end_x  %·Ö¿éÖ®ÄÚ°´ÐÐ±éÀú
+            for x=begin_x:end_x  %ï¿½Ö¿ï¿½Ö®ï¿½Ú°ï¿½ï¿½Ð±ï¿½ï¿½ï¿½
                 for y=begin_y:end_y
                     num = num+1;
                     origin_bits(num) = Plane(x,y);
@@ -48,37 +48,37 @@ if type==0 %0¡ú00
             end  
         end  
     end
-    if row-m*Block_size>=1 && col-n*Block_size>=1 %×îºóµÄÊ£ÓàÐÐÁÐ
+    if row-m*Block_size>=1 && col-n*Block_size>=1 %ï¿½ï¿½ï¿½ï¿½Ê£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         begin_x = m*Block_size+1;
         begin_y = n*Block_size+1;
         end_x = row;
         end_y = col;
-        for x=begin_x:end_x  %·Ö¿éÖ®¼ä°´ÐÐ±éÀú
+        for x=begin_x:end_x  %ï¿½Ö¿ï¿½Ö®ï¿½ä°´ï¿½Ð±ï¿½ï¿½ï¿½
             for y=begin_y:end_y
                 num = num+1;
                 origin_bits(num) = Plane(x,y);
             end
         end  
     end
-%-------------------·Ö¿éÄÚ°´ÐÐ±éÀú£¬·Ö¿é¼ä°´ÁÐ±éÀú£¨ÐÐ-ÁÐ£©------------------%
-elseif type==1 %1¡ú01
-    for j=1:n  %·Ö¿éÖ®¼ä°´ÁÐ±éÀú
+%-------------------ï¿½Ö¿ï¿½ï¿½Ú°ï¿½ï¿½Ð±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¿ï¿½ä°´ï¿½Ð±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½-ï¿½Ð£ï¿½------------------%
+elseif type==1 %1ï¿½ï¿½01
+    for j=1:n  %ï¿½Ö¿ï¿½Ö®ï¿½ä°´ï¿½Ð±ï¿½ï¿½ï¿½
         for i=1:m
-            begin_x = (i-1)*Block_size+1; %¶ÔÓ¦·Ö¿éµÄÆðÊ¼×ø±ê
+            begin_x = (i-1)*Block_size+1; %ï¿½ï¿½Ó¦ï¿½Ö¿ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½
             begin_y = (j-1)*Block_size+1;
-            end_x = i*Block_size; %¶ÔÓ¦·Ö¿éµÄ½áÊø×ø±ê
+            end_x = i*Block_size; %ï¿½ï¿½Ó¦ï¿½Ö¿ï¿½Ä½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             end_y = j*Block_size;
-            for x=begin_x:end_x  %·Ö¿éÖ®ÄÚ°´ÐÐ±éÀú
+            for x=begin_x:end_x  %ï¿½Ö¿ï¿½Ö®ï¿½Ú°ï¿½ï¿½Ð±ï¿½ï¿½ï¿½
                 for y=begin_y:end_y
                     num = num+1;
                     origin_bits(num) = Plane(x,y);
                 end
             end 
         end
-        if row-m*Block_size>=1  %ÓÐÊ£ÓàÐÐ
+        if row-m*Block_size>=1  %ï¿½ï¿½Ê£ï¿½ï¿½ï¿½ï¿½
             begin_x = m*Block_size+1;
             end_x = row;
-            for x=begin_x:end_x  %·Ö¿éÖ®ÄÚ°´ÐÐ±éÀú
+            for x=begin_x:end_x  %ï¿½Ö¿ï¿½Ö®ï¿½Ú°ï¿½ï¿½Ð±ï¿½ï¿½ï¿½
                 for y=begin_y:end_y
                     num = num+1;
                     origin_bits(num) = Plane(x,y);
@@ -86,13 +86,13 @@ elseif type==1 %1¡ú01
             end
         end  
     end
-    if col-n*Block_size>=1 %ÓÐÊ£ÓàÁÐ
+    if col-n*Block_size>=1 %ï¿½ï¿½Ê£ï¿½ï¿½ï¿½ï¿½
         begin_y = n*Block_size+1; 
         end_y = col;
         for i=1:m
             begin_x = (i-1)*Block_size+1;
             end_x = i*Block_size;
-            for x=begin_x:end_x  %·Ö¿éÖ®ÄÚ°´ÐÐ±éÀú
+            for x=begin_x:end_x  %ï¿½Ö¿ï¿½Ö®ï¿½Ú°ï¿½ï¿½Ð±ï¿½ï¿½ï¿½
                 for y=begin_y:end_y
                     num = num+1;
                     origin_bits(num) = Plane(x,y);
@@ -100,37 +100,37 @@ elseif type==1 %1¡ú01
             end  
         end  
     end
-    if row-m*Block_size>=1 && col-n*Block_size>=1 %×îºóµÄÊ£ÓàÐÐÁÐ
+    if row-m*Block_size>=1 && col-n*Block_size>=1 %ï¿½ï¿½ï¿½ï¿½Ê£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         begin_x = m*Block_size+1;
         begin_y = n*Block_size+1;
         end_x = row;
         end_y = col;
-        for x=begin_x:end_x  %·Ö¿éÖ®¼ä°´ÐÐ±éÀú
+        for x=begin_x:end_x  %ï¿½Ö¿ï¿½Ö®ï¿½ä°´ï¿½Ð±ï¿½ï¿½ï¿½
             for y=begin_y:end_y
                 num = num+1;
                 origin_bits(num) = Plane(x,y);
             end
         end  
     end
-%-------------------·Ö¿éÄÚ°´ÁÐ±éÀú£¬·Ö¿é¼ä°´ÐÐ±éÀú£¨ÁÐ-ÐÐ£©------------------%
-elseif type==2 %2¡ú10
-    for i=1:m  %·Ö¿éÖ®¼ä°´ÐÐ±éÀú
+%-------------------ï¿½Ö¿ï¿½ï¿½Ú°ï¿½ï¿½Ð±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¿ï¿½ä°´ï¿½Ð±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½-ï¿½Ð£ï¿½------------------%
+elseif type==2 %2ï¿½ï¿½10
+    for i=1:m  %ï¿½Ö¿ï¿½Ö®ï¿½ä°´ï¿½Ð±ï¿½ï¿½ï¿½
         for j=1:n
-            begin_x = (i-1)*Block_size+1; %¶ÔÓ¦·Ö¿éµÄÆðÊ¼×ø±ê
+            begin_x = (i-1)*Block_size+1; %ï¿½ï¿½Ó¦ï¿½Ö¿ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½
             begin_y = (j-1)*Block_size+1;
-            end_x = i*Block_size; %¶ÔÓ¦·Ö¿éµÄ½áÊø×ø±ê
+            end_x = i*Block_size; %ï¿½ï¿½Ó¦ï¿½Ö¿ï¿½Ä½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             end_y = j*Block_size; 
-            for y=begin_y:end_y  %·Ö¿éÖ®ÄÚ°´ÁÐ±éÀú
+            for y=begin_y:end_y  %ï¿½Ö¿ï¿½Ö®ï¿½Ú°ï¿½ï¿½Ð±ï¿½ï¿½ï¿½
                 for x=begin_x:end_x  
                     num = num+1;
                     origin_bits(num) = Plane(x,y);
                 end
             end 
         end
-        if col-n*Block_size>=1  %ÓÐÊ£ÓàÁÐ
+        if col-n*Block_size>=1  %ï¿½ï¿½Ê£ï¿½ï¿½ï¿½ï¿½
             begin_y = n*Block_size+1;
             end_y = col;
-            for y=begin_y:end_y  %·Ö¿éÖ®ÄÚ°´ÁÐ±éÀú
+            for y=begin_y:end_y  %ï¿½Ö¿ï¿½Ö®ï¿½Ú°ï¿½ï¿½Ð±ï¿½ï¿½ï¿½
                 for x=begin_x:end_x  
                     num = num+1;
                     origin_bits(num) = Plane(x,y);
@@ -138,13 +138,13 @@ elseif type==2 %2¡ú10
             end 
         end  
     end
-    if row-m*Block_size>=1 %ÓÐÊ£ÓàÐÐ
+    if row-m*Block_size>=1 %ï¿½ï¿½Ê£ï¿½ï¿½ï¿½ï¿½
         begin_x = m*Block_size+1; 
         end_x = row;
         for j=1:n
             begin_y = (j-1)*Block_size+1;
             end_y = j*Block_size;
-            for y=begin_y:end_y  %·Ö¿éÖ®ÄÚ°´ÁÐ±éÀú
+            for y=begin_y:end_y  %ï¿½Ö¿ï¿½Ö®ï¿½Ú°ï¿½ï¿½Ð±ï¿½ï¿½ï¿½
                 for x=begin_x:end_x  
                     num = num+1;
                     origin_bits(num) = Plane(x,y);
@@ -152,37 +152,37 @@ elseif type==2 %2¡ú10
             end   
         end  
     end
-    if row-m*Block_size>=1 && col-n*Block_size>=1 %×îºóµÄÊ£ÓàÐÐÁÐ
+    if row-m*Block_size>=1 && col-n*Block_size>=1 %ï¿½ï¿½ï¿½ï¿½Ê£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         begin_x = m*Block_size+1;
         begin_y = n*Block_size+1;
         end_x = row;
         end_y = col;
-        for y=begin_y:end_y  %·Ö¿éÖ®ÄÚ°´ÁÐ±éÀú
+        for y=begin_y:end_y  %ï¿½Ö¿ï¿½Ö®ï¿½Ú°ï¿½ï¿½Ð±ï¿½ï¿½ï¿½
             for x=begin_x:end_x  
                 num = num+1;
                 origin_bits(num) = Plane(x,y);
             end
         end   
     end
-%-------------------·Ö¿éÄÚ°´ÁÐ±éÀú£¬·Ö¿é¼ä°´ÁÐ±éÀú£¨ÁÐ-ÁÐ£©------------------%
-elseif type==3 %type==3£¬3¡ú11
-    for j=1:n  %·Ö¿éÖ®¼ä°´ÁÐ±éÀú
+%-------------------ï¿½Ö¿ï¿½ï¿½Ú°ï¿½ï¿½Ð±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¿ï¿½ä°´ï¿½Ð±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½-ï¿½Ð£ï¿½------------------%
+elseif type==3 %type==3ï¿½ï¿½3ï¿½ï¿½11
+    for j=1:n  %ï¿½Ö¿ï¿½Ö®ï¿½ä°´ï¿½Ð±ï¿½ï¿½ï¿½
         for i=1:m
-            begin_x = (i-1)*Block_size+1; %¶ÔÓ¦·Ö¿éµÄÆðÊ¼×ø±ê
+            begin_x = (i-1)*Block_size+1; %ï¿½ï¿½Ó¦ï¿½Ö¿ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½
             begin_y = (j-1)*Block_size+1;
-            end_x = i*Block_size; %¶ÔÓ¦·Ö¿éµÄ½áÊø×ø±ê
+            end_x = i*Block_size; %ï¿½ï¿½Ó¦ï¿½Ö¿ï¿½Ä½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             end_y = j*Block_size;
-            for y=begin_y:end_y  %·Ö¿éÖ®ÄÚ°´ÁÐ±éÀú
+            for y=begin_y:end_y  %ï¿½Ö¿ï¿½Ö®ï¿½Ú°ï¿½ï¿½Ð±ï¿½ï¿½ï¿½
                 for x=begin_x:end_x  
                     num = num+1;
                     origin_bits(num) = Plane(x,y);
                 end
             end  
         end
-        if row-m*Block_size>=1  %ÓÐÊ£ÓàÐÐ
+        if row-m*Block_size>=1  %ï¿½ï¿½Ê£ï¿½ï¿½ï¿½ï¿½
             begin_x = m*Block_size+1;
             end_x = row;
-            for y=begin_y:end_y  %·Ö¿éÖ®ÄÚ°´ÁÐ±éÀú
+            for y=begin_y:end_y  %ï¿½Ö¿ï¿½Ö®ï¿½Ú°ï¿½ï¿½Ð±ï¿½ï¿½ï¿½
                 for x=begin_x:end_x  
                     num = num+1;
                     origin_bits(num) = Plane(x,y);
@@ -190,13 +190,13 @@ elseif type==3 %type==3£¬3¡ú11
             end
         end  
     end
-    if col-n*Block_size>=1 %ÓÐÊ£ÓàÁÐ
+    if col-n*Block_size>=1 %ï¿½ï¿½Ê£ï¿½ï¿½ï¿½ï¿½
         begin_y = n*Block_size+1; 
         end_y = col;
         for i=1:m
             begin_x = (i-1)*Block_size+1;
             end_x = i*Block_size;
-            for y=begin_y:end_y  %·Ö¿éÖ®ÄÚ°´ÁÐ±éÀú
+            for y=begin_y:end_y  %ï¿½Ö¿ï¿½Ö®ï¿½Ú°ï¿½ï¿½Ð±ï¿½ï¿½ï¿½
                 for x=begin_x:end_x  
                     num = num+1;
                     origin_bits(num) = Plane(x,y);
@@ -204,26 +204,26 @@ elseif type==3 %type==3£¬3¡ú11
             end  
         end  
     end
-    if row-m*Block_size>=1 && col-n*Block_size>=1 %×îºóµÄÊ£ÓàÐÐÁÐ
+    if row-m*Block_size>=1 && col-n*Block_size>=1 %ï¿½ï¿½ï¿½ï¿½Ê£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         begin_x = m*Block_size+1;
         begin_y = n*Block_size+1;
         end_x = row;
         end_y = col;
-        for y=begin_y:end_y  %·Ö¿éÖ®ÄÚ°´ÁÐ±éÀú
+        for y=begin_y:end_y  %ï¿½Ö¿ï¿½Ö®ï¿½Ú°ï¿½ï¿½Ð±ï¿½ï¿½ï¿½
             for x=begin_x:end_x  
                 num = num+1;
                 origin_bits(num) = Plane(x,y);
             end
         end  
     end 
-%-------------------hilbert±éÀú---------------------%
-else %type==4£¬4¡úhilbert
+%-------------------hilbertï¿½ï¿½ï¿½ï¿½---------------------%
+else %type==4ï¿½ï¿½4ï¿½ï¿½hilbert
     coor = traverse(3);
-    l = floor(row/8); %m*n°´¿é8·Ö¿é
+    l = floor(row/8); %m*nï¿½ï¿½ï¿½ï¿½8ï¿½Ö¿ï¿½
     w = floor(col/8);
     for i=1:l
         for j=1:w
-            begin_x = (i-1)*8+1; %¶ÔÓ¦·Ö¿éµÄÆðÊ¼×ø±ê
+            begin_x = (i-1)*8+1; %ï¿½ï¿½Ó¦ï¿½Ö¿ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½
             begin_y = (j-1)*8+1;
             for c=1:2:127
                 x = coor(c)+begin_x;
