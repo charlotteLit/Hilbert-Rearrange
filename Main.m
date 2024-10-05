@@ -1,18 +1,8 @@
 clear
 clc
-%I = imread('测试图像\Airplane_1.tiff'); %Jetplane
-% I = imread('测试图像\Lake.tiff');
+
 I = imread('测试图像\Lena.tiff');
-% I = imread('测试图像\Man.tiff');
-% I = imread('测试图像\Peppers.tiff'); 
 
-%I = imread('测试图像\Airplane_0.tiff');
-% I = imread('测试图像\Baboon.tiff');
-% I = imread('测试图像\Tiffany.tiff');
-
-% I = imread('测试图像\gpic1.tif'); %尺寸：512*384
-% I = imread('测试图像\gpic2.tif'); %尺寸：384*512
-%I = imread('测试图像\gpic1049.tif');%尺寸：384*512
 origin_I = double(I); 
 %% 产生二进制秘密数据
 num_D = 3000000;
@@ -23,7 +13,7 @@ K_en = 1; %图像加密密钥
 K_sh = 2; %图像混洗密钥
 K_hide=3; %数据嵌入密钥
 %% 设置参数
-Block_size = 4; %分块大小（存储分块大小的比特数需要调整，目前设为4bits）
+Block_size = 4; %分块大小
 L_fix = 3; %定长编码参数
 L = 4; %相同比特流长度参数,方便修改
 %% 空出图像空间并加密混洗图像（内容所有者）
