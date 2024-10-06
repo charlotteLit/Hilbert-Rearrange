@@ -28,10 +28,7 @@ for pl=8:-1:1
     num_TB = num_TB+row*col;
 end
 t = 0; %计数
-%% 提取相关参数（Block_size,L_fix）
-bin28_Bs = Image_Bits(t+1:t+4); %提取存储的分块大小信息(4 bits)
-[Block_size] = BinaryConversion_2_10(bin28_Bs); %分块大小
-t = t+4;
+%% 提取相关参数（L_fix）
 bin28_Lf = Image_Bits(t+1:t+3); %提取存储的参数信息(3 bits)
 [L_fix] = BinaryConversion_2_10(bin28_Lf); %参数L_fix
 t = t+3;
@@ -58,10 +55,6 @@ for pl=8:-1:1
     sign = Image_Bits(t+1);
     t = t+1; %用作压缩标记
     if sign == 1 %表示该位平面可压缩
-        %------------------提取位平面的重排列方式（2 bits）-----------------%
-        bin2_type = Image_Bits(t+1:t+2); 
-        [type] = BinaryConversion_2_10(bin2_type); %位平面重排列方式
-        t = t+2;
         %----------------------提取位平面的压缩比特流-----------------------%
         bin2_len = Image_Bits(t+1:t+num); 
         [len_CBS] = BinaryConversion_2_10(bin2_len); %位平面压缩比特流的长度
@@ -71,7 +64,7 @@ for pl=8:-1:1
         %---------------------解压缩位平面的压缩比特流----------------------% 
         [Plane_bits] = BitStream_DeCompress(CBS,L_fix);
         %-----------------------恢复位平面的原始矩阵------------------------% 
-        [Plane_Matrix] = BitPlanes_Recover(Plane_bits,Block_size,type,row,col);
+        [Plane_Matrix] = BitPlanes_Recover(Plane_bits,row,col);
     else %表示该位平面不可压缩，直接提取
         Plane_bits = Image_Bits(t+1:t+row*col); %当前位平面的压缩比特流
         t = t+row*col;

@@ -1,4 +1,4 @@
-function [ES_I,num_Of,PL_len,PL_room,total_Room] = Vacate_Encrypt(origin_I,Block_size,L_fix,L,K_en,K_sh)
+function [ES_I,num_Of,PL_len,PL_room,total_Room] = Vacate_Encrypt(origin_I,L_fix,L,K_en,K_sh)
 % 函数说明：空出图像空间并加密原始图像，得到空出嵌入空间的加密图像
 % 输入：origin_I（原始图像）,Block_size（分块大小）,L_fix（定长编码参数）,L（相同比特流长度参数）,K_en（图像加密密钥）,K_sh（图像混洗密钥）
 % 输出：ES_I（压缩之后的加密混洗图像）,Overflow（溢出预测误差的位置信息）,PL_len（各个位平面压缩比特流的长度）,PL_room（各位平面压缩空间大小）,total_Room（净压缩空间）
@@ -8,7 +8,7 @@ num = ceil(log2(row))+ceil(log2(col))+3; %记录净压缩空间大小需要的比特数（+3代表
 %% 计算原始图像origin_I的预测误差图像
 [PE_I,num_Of,Overflow] = Prediction_Error(origin_I);
 %% 在预测误差图像PE_I中空出可以嵌入秘密信息的空间
-[vacate_I,PL_len,PL_room,total_Room] = Vacate_Room(PE_I,Block_size,L_fix,L,num_Of,Overflow);
+[vacate_I,PL_len,PL_room,total_Room] = Vacate_Room(PE_I,L_fix,L,num_Of,Overflow);
 %% 根据图像加密密钥K_en加密图像vacate_I
 rand('seed',K_en); %设置种子
 E = round(rand(row,col)*255); %生成大小为row*col的伪随机数矩阵
