@@ -51,6 +51,10 @@ if total_Room>=num %需要num比特记录净压缩空间大小
     subplot(222);imshow(ES_I,[]);title('加密图像');
     subplot(223);imshow(stego_I,[]);title('载密图像');
     subplot(224);imshow(recover_I,[]);title('恢复图像');
+    subplot(221);imshow(origin_I,[]);title('原始图像');
+    subplot(222);imshow(ES_I,[]);title('加密图像');
+    subplot(223);imshow(stego_I,[]);title('载密图像');
+    subplot(224);imshow(recover_I,[]);title('恢复图像');
     %% 计算图像嵌入率
     [m,n] = size(origin_I);
     bpp = num_emD/(m*n);
