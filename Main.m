@@ -13,40 +13,44 @@ K_en = 1; %图像加密密钥
 K_sh = 2; %图像混洗密钥
 K_hide=3; %数据嵌入密钥
 %% 设置参数
-Block_size = 4; %分块大小
+Block_size = 8; %分块大小
 L_fix = 3; %定长编码参数
 L = 4; %相同比特流长度参数,方便修改
 %% 空出图像空间并加密混洗图像（内容所有者）
-[ES_I,num_Of,PL_len,PL_room,total_Room] = Vacate_Encrypt(origin_I,Block_size,L_fix,L,K_en,K_sh);
+[ES_I,num_Of,PL_len,PL_room,total_Room] = Vacate_Encrypt(origin_I,L_fix,L,K_en,K_sh);
+disp('压缩完毕')
 %% 净载荷空间大于num的情况下才进行数据嵌入（代表有压缩空间）
 [row,col] = size(origin_I); %计算origin_I的行列值
 num = ceil(log2(row))+ceil(log2(col))+2; %记录净压缩空间大小需要的比特数
 if total_Room>=num %需要num比特记录净压缩空间大小
     %% 在加密混洗图像中嵌入数据（数据嵌入者）
     [stego_I,emD] = Data_Embed(ES_I,K_sh,K_hide,D); 
+    disp('嵌入完毕')
     num_emD = length(emD);
     %% 在载密图像中提取秘密信息（接收者）
     [exD] = Data_Extract(stego_I,K_sh,K_hide,num_emD);
+    disp('提取完毕')
     %% 恢复载密图像（接收者）
     [recover_I] = Image_Recover(stego_I,K_en,K_sh);
+    disp('图像恢复完毕')
     %% 图像对比
+    % figure(1);
+    % H=GetHis(origin_I);
+    % plot(0:255,H);
+    % area(0:255,H,'FaceColor','b')
+    % figure(2);
+    % H=GetHis(ES_I);
+    % plot(0:255,H);
+    % area(0:255,H,'FaceColor','b')
+    % figure(3);
+    % H=GetHis(stego_I);
+    % plot(0:255,H);
+    % area(0:255,H,'FaceColor','b')
     figure(1);
-    H=GetHis(origin_I);
-    plot(0:255,H);
-    area(0:255,H,'FaceColor','b')
-    figure(2);
-    H=GetHis(ES_I);
-    plot(0:255,H);
-    area(0:255,H,'FaceColor','b')
-    figure(3);
-    H=GetHis(stego_I);
-    plot(0:255,H);
-    area(0:255,H,'FaceColor','b')
-    figure(4);
-    subplot(141);imshow(origin_I,[]);title('原始图像');
-    subplot(142);imshow(ES_I,[]);title('加密图像');
-    subplot(143);imshow(stego_I,[]);title('载密图像');
-    subplot(144);imshow(recover_I,[]);title('恢复图像');
+    subplot(221);imshow(origin_I,[]);title('原始图像');
+    subplot(222);imshow(ES_I,[]);title('加密图像');
+    subplot(223);imshow(stego_I,[]);title('载密图像');
+    subplot(224);imshow(recover_I,[]);title('恢复图像');
     %% 计算图像嵌入率
     [m,n] = size(origin_I);
     bpp = num_emD/(m*n);
