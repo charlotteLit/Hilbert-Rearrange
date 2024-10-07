@@ -68,7 +68,7 @@ for pl=8:-1:1
     else %表示该位平面不可压缩，直接提取
         Plane_bits = Image_Bits(t+1:t+row*col); %当前位平面的压缩比特流
         t = t+row*col;
-        Plane = reshape(Plane_bits,col,row); %换成矩阵,以列排序
+        Plane = reshape(Plane_bits,row,col); %换成矩阵,以列排序
         Plane_Matrix = Plane'; %转置矩阵
     end
     %% ---------------将恢复的位平面矩阵放回解密图像中---------------% 
@@ -76,6 +76,8 @@ for pl=8:-1:1
     PE_I = RI;
 end
 %% 恢复原始图像
+assignin('base', 'PE_I', PE_I);
+
 recover_I = PE_I;
 k = 0; %计数
 for i=2:row  %第一行第一列为参考像素值

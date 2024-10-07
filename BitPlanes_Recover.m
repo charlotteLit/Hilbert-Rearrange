@@ -6,7 +6,6 @@ function [Plane_Matrix] = BitPlanes_Recover(Plane_bits,row,col)
 Plane_Matrix = zeros(row,col);
 num = 0; %¼ÆÊý
 coor = traverse(3);
-coor_fllipped = flipud(coor);
 
 l = floor(row/8); 
 w = floor(col/8);
@@ -16,10 +15,10 @@ for i=1:l
         begin_x = (i-1)*8+1; 
         begin_y = (j-1)*8+1;
         for c=1:2:127
-            x = coor_fllipped(c)+begin_x;
-            y = coor_fllipped(c+1)+begin_y;
+            x = coor(c)+begin_x;
+            y = coor(c+1)+begin_y;
             num = num+1;
-            Plane_Matrix(x,y) = Plane_bits(num)
+            Plane_Matrix(x,y) = Plane_bits(num);
         end
     end
 end
