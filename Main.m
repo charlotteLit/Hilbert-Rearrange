@@ -13,7 +13,7 @@ K_en = 1; %图像加密密钥
 K_sh = 2; %图像混洗密钥
 K_hide=3; %数据嵌入密钥
 %% 设置参数
-Block_size = 8; %分块大小
+Block_size = 16; %分块大小
 L_fix = 3; %定长编码参数
 L = 4; %相同比特流长度参数,方便修改
 %% 空出图像空间并加密混洗图像（内容所有者）
@@ -30,15 +30,15 @@ if total_Room>=num %需要num比特记录净压缩空间大小
     %% 恢复载密图像（接收者）
     [recover_I] = Image_Recover(stego_I,K_en,K_sh);
 
-    % figure(1);
-    % subplot(141);
-    % imshow(origin_I,[]);title('原始图像');
-    % subplot(142);
-    % imshow(ES_I,[]);title('加密图像');
-    % subplot(143);
-    % imshow(stego_I,[]);title('载密图像');
-    % subplot(144);
-    % imshow(recover_I,[]);title('恢复图像');
+    figure(1);
+    subplot(141);
+    imshow(origin_I,[]);title('原始图像');
+    subplot(142);
+    imshow(ES_I,[]);title('加密图像');
+    subplot(143);
+    imshow(stego_I,[]);title('载密图像');
+    subplot(144);
+    imshow(recover_I,[]);title('恢复图像');
 
     %% 计算图像嵌入率
     [m,n] = size(origin_I);
