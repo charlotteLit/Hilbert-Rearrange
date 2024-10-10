@@ -30,8 +30,9 @@ for i=1:img_num
     I = imread(strcat(I_file_path,I_name));%读取图像
     origin_I = double(I);
     
-    figure;
-    subplot(111);imshow(origin_I,[]);title('原始图像');
+    % figure;
+    % subplot(111);imshow(origin_I,[]);title('原始图像');
+
     %----------------空出图像空间并加密混洗图像（内容所有者）----------------%
     [ES_I,num_Of,PL_len,PL_room,total_Room] = Vacate_Encrypt(origin_I,Block_size,L_fix,L,K_en,K_sh);
     %--------净载荷空间大于num的情况下才进行数据嵌入（代表有压缩空间）--------%
@@ -50,10 +51,12 @@ for i=1:img_num
         num_BOSSbase(i) = num_emD;
         bpp_BOSSbase(i) = num_emD/(m*n);
         over_BOSSbase(i) = num_Of; %记录溢出预测误差个数
-        for pl=1:8 %记录图像位平面压缩长度和压缩空间
-            len_BOSSbase(pl,i) = PL_len(pl);
-            room_BOSSbase(pl,i) = PL_room(pl);
-        end
+
+        % for pl=1:8 %记录图像位平面压缩长度和压缩空间
+        %     len_BOSSbase(pl,i) = PL_len(pl);
+        %     room_BOSSbase(pl,i) = PL_room(pl);
+        % end
+
         %-----------------------------结果判断-----------------------------%
         check1 = isequal(emD,exD);
         check2 = isequal(origin_I,recover_I);
@@ -100,5 +103,5 @@ end
 save('num_BOSSbase')
 save('bpp_BOSSbase')
 save('over_BOSSbase')
-save('room_BOSSbase')
-save('len_BOSSbase')
+% save('room_BOSSbase')
+% save('len_BOSSbase')
