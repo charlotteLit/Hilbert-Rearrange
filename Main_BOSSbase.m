@@ -12,8 +12,8 @@ img_num = length(I_path_list); %获取图像总数量
 num_BOSSbase = zeros(1,img_num); %记录每张图像的嵌入量 
 bpp_BOSSbase = zeros(1,img_num); %记录每张图像的嵌入率
 over_BOSSbase = zeros(1,img_num);%记录每张图像的溢出像素个数
-room_BOSSbase = zeros(8,img_num);%记录每张图像各个位平面的压缩空间
-len_BOSSbase = zeros(8,img_num); %记录每张图像各个位平面的压缩比特流长度
+% room_BOSSbase = zeros(8,img_num);%记录每张图像各个位平面的压缩空间
+% len_BOSSbase = zeros(8,img_num); %记录每张图像各个位平面的压缩比特流长度
 %% 设置密钥
 K_en = 1; %图像加密密钥
 K_sh = 2; %图像混洗密钥
@@ -91,10 +91,10 @@ for i=1:img_num
         ERROR = ERROR+1;
         num_BOSSbase(i) = -1; %表示不能嵌入秘密信息
         over_BOSSbase(i) = num_Of; %记录溢出预测误差个数
-        for pl=1:8 %记录图像位平面压缩长度和压缩空间
-            len_BOSSbase(pl,i) = PL_len(pl);
-            room_BOSSbase(pl,i) = PL_room(pl);
-        end
+        % for pl=1:8 %记录图像位平面压缩长度和压缩空间
+        %     len_BOSSbase(pl,i) = PL_len(pl);
+        %     room_BOSSbase(pl,i) = PL_room(pl);
+        % end
         disp('辅助信息大于压缩空间（净压缩空间小于0），导致无法存储数据！') 
         fprintf(['该测试图像------------ ERROR','\n\n']);
     end  
