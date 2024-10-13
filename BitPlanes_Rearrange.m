@@ -1,6 +1,6 @@
 function [origin_bits] = BitPlanes_Rearrange(Plane)
-% Hilbert三级加密，一级分块8*8，二级8*8块，三级同上
-% 一级2^3=8，二级2^6=64，三级2^9=512
+% Hilbert二级加密，二级8*8块，三级同上
+% 二级2^6=64，三级2^9=512
 [row,col] = size(Plane);
 origin_bits = zeros(); 
 num = 0; 
